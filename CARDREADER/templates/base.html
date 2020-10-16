@@ -1,0 +1,72 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Feed</title>
+    <link rel = "stylesheet" href="{% static 'styles.css' %}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class = "wrapper">
+        <div class = "mark">
+            <h2>Live Card extraction</h2>
+            <h4>by Rudramani</h4>
+        </div>
+        <div class = "feed">
+            <div class = "cam">
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class ="Canvas">
+                <canvas id="myCanvas" width="660" height="500"></canvas>
+            </div>
+        </div>
+        <div class = "texts" id = "texts">
+            <div class = "all" id = "topright">
+                <h3>Extraced details from the last card:</h3>
+                <br>
+                <p id = "fullcont"></p>
+                {% block guide %}
+                {% endblock guide %}
+            </div>
+            <div class = "key" id = "bottomright">
+                <H3>Processed Key value pairs:</h3>
+                <br>
+                <p id = "extcont"></p> 
+            </div>
+        </div>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+    
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.strokeStyle = "#faf0e6";
+    ctx.strokeRect(50, 50, 560, 400);
+
+    function fetchdata(){
+        $.ajax({
+            url: '/liveFeed/scan/',
+            async: true,
+            type: 'post',
+            success: function(response){
+                if (response["first"]=="0"){
+                    document.getElementById("guideimg").style.display = "none";
+                };
+                document.getElementById("fullcont").innerHTML = response["last_text"].replace(/\n/g, "<br>");
+                var x = "{";
+                for (n in response["last_key"]){
+                    x = x.concat("<br>"+"\""+n+"\""+" : "+"\""+response["last_key"][n]+"\"")
+                };
+                x = x.concat("<br> }")
+                document.getElementById("extcont").innerHTML = x;  
+            }
+        });
+    }
+    $(document).ready(function(){
+        setInterval(fetchdata,1000);
+    });
+    </script> 
+</body>
+</html>

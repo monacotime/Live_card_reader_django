@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block guide %}
+<img id = "guideimg" src = "{%static 'guide.png'%}" alt = "errorloading the guide image" height="200" width="300">
+{% endblock guide %}
+
+{% block content %}
+<img src="{% url 'LivCam:live-feed' %}" alt="feed">
+{% endblock content %}

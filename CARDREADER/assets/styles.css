@@ -1,0 +1,57 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Consolas,monaco,monospace; ;
+    color: #faf0e6;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 660px 1fr;
+    background: #262A2D;
+    width: 100vw;
+    height: 100vh;
+}
+
+.feed{
+    display: block;
+    width: 660px;
+    height: 500px;
+    background: #1C2022;
+    align-self: center;
+}
+
+.texts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+.all {
+    padding: 2em;
+    background: #333B40;
+}
+
+.key {
+    padding: 2em;
+    background: #495358;
+}
+
+.Canvas{
+    position: absolute;
+    z-index:1000;
+}
+
+.cam{
+    position: absolute;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.mark{
+    padding-top: 20px;
+    padding-left: 20px;
+    position: absolute;
+    z-index:50;
+}
